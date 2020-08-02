@@ -1,3 +1,4 @@
 venv
 .idea
 /todo/local_settings.py
+/db.sqlite3
