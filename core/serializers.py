@@ -10,7 +10,7 @@ class TodoItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TodoItem
-        fields = ['id', 'title', 'text', 'owner']
+        fields = ['id', 'title', 'text', 'owner', 'created']
 
 
 class UserSerializer(serializers.ModelSerializer):
