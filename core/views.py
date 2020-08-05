@@ -2,12 +2,15 @@ from django.contrib.auth.models import User
 from rest_framework import viewsets, status
 from rest_framework import permissions
 from rest_framework.response import Response
+from .permissions import OwnerPermission
 
 from core.models import TodoItem
 from core.serializers import TodoItemSerializer, UserSerializer
 
 
 class TodoItemViewSet(viewsets.ModelViewSet):
+
+    permission_classes = [OwnerPermission]
     serializer_class = TodoItemSerializer
 
     def perform_create(self, serializer):
