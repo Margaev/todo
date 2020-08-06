@@ -10,7 +10,8 @@ from core.serializers import TodoItemSerializer, UserSerializer
 
 class TodoItemViewSet(viewsets.ModelViewSet):
 
-    permission_classes = [OwnerPermission]
+    permission_classes = [permissions.IsAuthenticated,
+                          OwnerPermission]
     serializer_class = TodoItemSerializer
 
     def perform_create(self, serializer):
