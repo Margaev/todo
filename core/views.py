@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
-from rest_framework import viewsets, status
+from rest_framework import viewsets, mixins
 from rest_framework import permissions
-from rest_framework.response import Response
-from .permissions import OwnerPermission
+from .permissions import OwnerPermission, SelfPermission
 
 from core.models import TodoItem
 from core.serializers import TodoItemSerializer, UserSerializer
@@ -21,6 +20,11 @@ class TodoItemViewSet(viewsets.ModelViewSet):
         return TodoItem.objects.filter(owner=self.request.user)
 
 
-class UserViewSet(viewsets.ModelViewSet):
+class UserViewSet(viewsets.GenericViewSet,
+                  mixins.RetrieveModelMixin,
+                  mixins.CreateModelMixin):
+
+    permission_classes = [SelfPermission]
+
     serializer_class = UserSerializer
     queryset = User.objects.all()
